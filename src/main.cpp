@@ -35,7 +35,6 @@ public:
 	}
 
 	RatedPlusLevelStatus get(std::int32_t levelID) {
-
 		return m_levelStatusMap.at(levelID);
 	}
 

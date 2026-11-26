@@ -1,7 +1,7 @@
 # RatedPlusDemon
 <img src="logo.png" width="150" alt="the mod's logo" />
 
-### THIS MOD IS NOT AFFILIATED WITH POINTERCRATE
+### THIS MOD IS NOT AFFILIATED WITH POINTERCRATE AND IS UNOFFICAL
 
 Adds in a new pseudo-difficulty to represent unrated levels on the Pointercrate Rated+ Demonlist for a (mostly) cosmetic and a semi-functional purpose.
 Adds the difficulty in question to LevelInfoLayer and LevelCell.
