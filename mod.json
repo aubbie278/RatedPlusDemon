@@ -19,5 +19,9 @@
 			"resources/ratedplusdemon.png",
 			"resources/ratedplusdemon2.png"
 		]
+	},
+
+	"links": {
+		"source": "https://github.com/aubbie278/RatedPlusDemon"
 	}
 }
