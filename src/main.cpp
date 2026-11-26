@@ -8,6 +8,7 @@
 
 using namespace geode::prelude;
 
+// i wanted to have the levels from the sheet as well but there's no level id for it to pull from on the google sheet (probably not a good idea to pull from the sheet anyway)
 enum class RatedPlusLevelStatus {
 	InSheet,
 	Polled,
