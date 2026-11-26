@@ -54,7 +54,7 @@ void drawDemon(CCLayer& layer) {
 	layer.getChildByID("difficulty-sprite")->setScale(0.5f);
 	layer.getChildByID("difficulty-sprite")->setPositionX(150);
 	auto demonSprite{ CCSprite::create("ratedplusdemon.png"_spr) };
-	demonSprite->setID("rated-plus-difficulty");
+	demonSprite->setID("rated-plus-difficulty"_spr);
 	demonSprite->setPosition({ 184.5, 216.0 });
 
 	layer.addChild(demonSprite);
@@ -65,7 +65,7 @@ void drawStatusLabel(int32_t levelID, CCLayer& layer) {
 	RatedPlusLevelStatus levelStatus {statusCache.get(levelID)};
 
 	auto statusLabel { Label::create("bigFont.fnt") };
-	statusLabel->setID("status-label");
+	statusLabel->setID("status-label"_spr);
 	statusLabel->setScale(0.2f);
 
 	if (levelStatus == RatedPlusLevelStatus::Placed) {
@@ -141,7 +141,7 @@ void drawDemonOnLevelCell(GJGameLevel* level, CCLayer& layer) {
 
 	CCSprite* demonSprite{ CCSprite::create("ratedplusdemon2.png"_spr) };
 	demonSprite->setPosition({0, 0 });
-	demonSprite->setID("rated-plus-difficulty");
+	demonSprite->setID("rated-plus-difficulty"_spr);
 
 	difficultyContainer->getChildByID("difficulty-sprite")->setVisible(false);
 	difficultyContainer->addChild(demonSprite);
