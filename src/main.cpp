@@ -52,13 +52,25 @@ private:
 };
 
 void drawDemon(GJGameLevel& level, CCLayer& layer) {
-	layer.getChildByID("difficulty-sprite")->setScale(0.5f);
-	layer.getChildByID("difficulty-sprite")->setPositionX(150);
+	//layer.getChildByID("difficulty-sprite")->setScale(0.5f);
+	//layer.getChildByID("difficulty-sprite")->setPositionX(150);
 	auto demonSprite{ CCSprite::create("ratedplusdemon.png"_spr) };
 	demonSprite->setID("rated-plus-difficulty"_spr);
 	demonSprite->setPosition({ 184.5, 216.0 });
 
 	layer.addChild(demonSprite);
+}
+
+void drawServerDifficulty(GJGameLevel& level, CCLayer& layer) {
+	layer.getChildByID("difficulty-sprite")->setVisible(false);
+	log::debug("{}", level.getAverageDifficulty());
+	
+	GJDifficultySprite* serverDifficulty{ GJDifficultySprite::create(level.getAverageDifficulty(), GJDifficultyName::Short) };
+	serverDifficulty->setID("server-difficulty"_spr);
+	serverDifficulty->setPosition({150, 221});
+	serverDifficulty->setScale(0.5f);
+
+	layer.addChild(serverDifficulty);
 }
 
 void drawStatusLabel(GJGameLevel& level, CCLayer& layer) {
@@ -79,9 +91,10 @@ void drawStatusLabel(GJGameLevel& level, CCLayer& layer) {
 	layer.addChild(statusLabel);
 }
 
-void drawDemonAndStatusLabel(GJGameLevel& level, CCLayer& layer) {
+void drawInfo(GJGameLevel& level, CCLayer& layer) {
 	drawDemon(level, layer);	
 	drawStatusLabel(level, layer);
+	drawServerDifficulty(level, layer);
 }
 
 void insertLevelStatusFromJson(std::string&& rawJson, int32_t levelID) {
@@ -115,7 +128,7 @@ class $modify(RPlusLevelInfoLayer, LevelInfoLayer) {
 		auto& statusCache {RatedPlusLevelCache::getInstance()};
 
 		if (!statusCache.empty() &&statusCache.contains(level->m_levelID)) {
-			drawDemonAndStatusLabel(*level, *this);
+			drawInfo(*level, *this);
 			return true;
 		}
 
@@ -129,7 +142,7 @@ class $modify(RPlusLevelInfoLayer, LevelInfoLayer) {
 				insertLevelStatusFromJson(std::move(result.string().unwrapOrDefault()), this->m_level->m_levelID);
 
 				if (statusCache.contains(this->m_level->m_levelID)) {
-					drawDemonAndStatusLabel(*this->m_level, *this);
+					drawInfo(*this->m_level, *this);
 				}
 			}
 	    );
