@@ -54,8 +54,9 @@ void drawDemon(CCLayer& layer) {
 	layer.getChildByID("difficulty-sprite")->setScale(0.5f);
 	layer.getChildByID("difficulty-sprite")->setPositionX(150);
 	auto demonSprite{ CCSprite::create("ratedplusdemon.png"_spr) };
-
+	demonSprite->setID("rated-plus-difficulty");
 	demonSprite->setPosition({ 184.5, 216.0 });
+
 	layer.addChild(demonSprite);
 }
 
@@ -64,7 +65,7 @@ void drawStatusLabel(int32_t levelID, CCLayer& layer) {
 	RatedPlusLevelStatus levelStatus {statusCache.get(levelID)};
 
 	auto statusLabel { Label::create("bigFont.fnt") };
-
+	statusLabel->setID("status-label");
 	statusLabel->setScale(0.2f);
 
 	if (levelStatus == RatedPlusLevelStatus::Placed) {
@@ -89,7 +90,6 @@ void insertLevelStatusFromJson(std::string&& rawJson, int32_t levelID) {
 
 	auto parsedJson{ matjson::parse(rawJson).unwrapOrDefault() };
 	RatedPlusLevelCache& statusCache {RatedPlusLevelCache::getInstance()};
-	log::debug("{}", parsedJson.dump());
 
 	if (parsedJson.contains("rated") && !parsedJson["rated"].asBool().unwrap()) {
 		
@@ -140,10 +140,10 @@ void drawDemonOnLevelCell(GJGameLevel* level, CCLayer& layer) {
 	auto difficultyContainer = layer.getChildByIDRecursive("difficulty-container");
 
 	CCSprite* demonSprite{ CCSprite::create("ratedplusdemon2.png"_spr) };
-	difficultyContainer->getChildByID("difficulty-sprite")->setVisible(false);
-	
 	demonSprite->setPosition({0, 0 });
+	demonSprite->setID("rated-plus-difficulty");
 
+	difficultyContainer->getChildByID("difficulty-sprite")->setVisible(false);
 	difficultyContainer->addChild(demonSprite);
 	difficultyContainer->updateLayout();
 }
@@ -167,8 +167,6 @@ class $modify(RPlusLevelCell, LevelCell) {
 		int levelID {level->m_levelID.value()};
 		auto& statusCache {RatedPlusLevelCache::getInstance()};
 		
-		log::debug("Level ID: {}", levelID);
-
 		if (!statusCache.empty() &&statusCache.contains(level->m_levelID)) {
 			drawDemonOnLevelCell(level, *this);
 			return;
