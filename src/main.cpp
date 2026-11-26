@@ -63,7 +63,6 @@ void drawDemon(GJGameLevel& level, CCLayer& layer) {
 
 void drawServerDifficulty(GJGameLevel& level, CCLayer& layer) {
 	layer.getChildByID("difficulty-sprite")->setVisible(false);
-	log::debug("{}", level.getAverageDifficulty());
 	
 	GJDifficultySprite* serverDifficulty{ GJDifficultySprite::create(level.getAverageDifficulty(), GJDifficultyName::Short) };
 	serverDifficulty->setID("server-difficulty"_spr);
