@@ -8,7 +8,7 @@
 	},
 	"id": "aubbie.ratedplusdemon",
 	"name": "RatedPlusDemon",
-	"version": "v1.0.1",
+	"version": "v1.1.0",
 	"developer": "aubbie",
 	"description": "Adds in a fake difficulty for unrated demons", 
 	"dependencies": {
