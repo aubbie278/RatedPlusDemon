@@ -1,12 +1,11 @@
 # RatedPlusDemon
-<img src="logo.png" width="150" alt="the mod's logo" />
 
 ### THIS MOD IS NOT AFFILIATED WITH POINTERCRATE AND IS UNOFFICAL
 
 Adds in a new pseudo-difficulty to represent unrated levels on the Pointercrate Rated+ Demonlist for a (mostly) cosmetic and a semi-functional purpose.
-Adds the difficulty in question to LevelInfoLayer and LevelCell.
-Displays the server difficulty and placement status around the demon.
+- Adds the difficulty in question to LevelInfoLayer and LevelCell.
+- Displays the server difficulty and placement status around the demon.
 
-<img src="resources/screenshot1.jpg" width="1280" height="720" alt="LevelInfoLayer" />
-<img src="resources/screenshot2.jpg" width="1280" height="720" alt="LevelBrowserLayer" />
-<img src="resources/screenshot3.jpg" width="1280" height="720" alt="LevelListLayer" />
+![LevelInfoLayer](resources/screenshot1.jpg?scale=0.5)
+![LevelBrowserLayer](resources/screenshot2.jpg?scale=0.5)
+![LevelListLayer](resources/screenshot3.jpg?scale=0.5)

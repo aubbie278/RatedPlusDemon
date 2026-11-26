@@ -16,8 +16,7 @@
 
 	"resources": {
 		"sprites": [
-			"resources/ratedplusdemon.png",
-			"resources/ratedplusdemon2.png"
+			"resources/*"
 		]
 	},
 
