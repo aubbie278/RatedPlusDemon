@@ -50,7 +50,7 @@ private:
 
 };
 
-void drawDemon(CCLayer& layer) {
+void drawDemon(GJGameLevel& level, CCLayer& layer) {
 	layer.getChildByID("difficulty-sprite")->setScale(0.5f);
 	layer.getChildByID("difficulty-sprite")->setPositionX(150);
 	auto demonSprite{ CCSprite::create("ratedplusdemon.png"_spr) };
@@ -60,9 +60,9 @@ void drawDemon(CCLayer& layer) {
 	layer.addChild(demonSprite);
 }
 
-void drawStatusLabel(int32_t levelID, CCLayer& layer) {
+void drawStatusLabel(GJGameLevel& level, CCLayer& layer) {
 	RatedPlusLevelCache& statusCache {RatedPlusLevelCache::getInstance()};
-	RatedPlusLevelStatus levelStatus {statusCache.get(levelID)};
+	RatedPlusLevelStatus levelStatus {statusCache.get(level.m_levelID)};
 
 	auto statusLabel { Label::create("bigFont.fnt") };
 	statusLabel->setID("status-label"_spr);
@@ -78,9 +78,9 @@ void drawStatusLabel(int32_t levelID, CCLayer& layer) {
 	layer.addChild(statusLabel);
 }
 
-void drawDemonAndStatusLabel(int32_t levelID, CCLayer& layer) {
-	drawDemon(layer);	
-	drawStatusLabel(levelID, layer);
+void drawDemonAndStatusLabel(GJGameLevel& level, CCLayer& layer) {
+	drawDemon(level, layer);	
+	drawStatusLabel(level, layer);
 }
 
 void insertLevelStatusFromJson(std::string&& rawJson, int32_t levelID) {
@@ -114,7 +114,7 @@ class $modify(RPlusLevelInfoLayer, LevelInfoLayer) {
 		auto& statusCache {RatedPlusLevelCache::getInstance()};
 
 		if (!statusCache.empty() &&statusCache.contains(level->m_levelID)) {
-			drawDemonAndStatusLabel(level->m_levelID, *this);
+			drawDemonAndStatusLabel(*level, *this);
 			return true;
 		}
 
@@ -128,7 +128,7 @@ class $modify(RPlusLevelInfoLayer, LevelInfoLayer) {
 				insertLevelStatusFromJson(std::move(result.string().unwrapOrDefault()), this->m_level->m_levelID);
 
 				if (statusCache.contains(this->m_level->m_levelID)) {
-					drawDemonAndStatusLabel(this->m_level->m_levelID, *this);
+					drawDemonAndStatusLabel(*this->m_level, *this);
 				}
 			}
 	    );
