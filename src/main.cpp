@@ -136,8 +136,12 @@ class $modify(RPlusLevelInfoLayer, LevelInfoLayer) {
 		request.acceptEncoding("application/json");
 
 		m_fields->m_listListener.spawn(
+
 			request.get(fmt::format("https://pointercrate.com/api/v2/demons/listed?level_id={}", level->m_levelID)),
 			[this, &statusCache](web::WebResponse result) {
+				if (!result.ok()) {
+					return;
+				}
 				insertLevelStatusFromJson(std::move(result.string().unwrapOrDefault()), this->m_level->m_levelID);
 
 				if (statusCache.contains(this->m_level->m_levelID)) {
@@ -192,7 +196,10 @@ class $modify(RPlusLevelCell, LevelCell) {
 		m_fields->m_listListener.spawn(
 			request.get(fmt::format("https://pointercrate.com/api/v2/demons/listed?level_id={}", level->m_levelID)),
 			[level, this, &statusCache](web::WebResponse result) {
-				insertLevelStatusFromJson(std::move(result.string().unwrapOrDefault()), this->m_level->m_levelID);
+				if (!result.ok()) {
+					return;
+				}
+				insertLevelStatusFromJson(std::move(result.string().unwrap()), this->m_level->m_levelID);
 
 				if (statusCache.contains(level->m_levelID)) {
 					drawDemonOnLevelCell(level, *this);
